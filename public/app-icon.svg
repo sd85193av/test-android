@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title">
+  <title id="title">東山鴨頭庫存管理</title>
+  <rect width="512" height="512" rx="116" fill="#8c2f17"/>
+  <circle cx="256" cy="256" r="166" fill="#d84a13"/>
+  <path d="M144 354c17-75 41-112 77-136-8-51 24-94 78-94 48 0 85 29 91 70 38 10 64 31 78 62-26 23-54 34-89 34-11 54-50 91-102 98-56 7-104-5-133-34Z" fill="#fff7ed"/>
+  <path d="M368 210c50 1 84 15 104 43-25 22-59 33-102 31 10-25 9-50-2-74Z" fill="#facc15"/>
+  <circle cx="325" cy="185" r="13" fill="#2d1d16"/>
+  <path d="M180 332c48 24 104 29 166 13" fill="none" stroke="#8c2f17" stroke-width="22" stroke-linecap="round"/>
+  <path d="m188 286 34 34 72-82" fill="none" stroke="#16a34a" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

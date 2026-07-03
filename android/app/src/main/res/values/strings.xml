@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">東山鴨頭庫存管理</string>
+    <string name="title_activity_main">東山鴨頭庫存管理</string>
+    <string name="package_name">com.chenyotech.dongshaninventory</string>
+    <string name="custom_url_scheme">com.chenyotech.dongshaninventory</string>
+</resources>

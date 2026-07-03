@@ -1,0 +1,40 @@
+{
+  "name": "dongshan-inventory-app",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "android:open": "cap open android",
+    "android:sync": "npm run build && cap sync android",
+    "dev": "vite",
+    "test": "vitest run",
+    "typecheck": "tsc -b --pretty false",
+    "build": "tsc -b && vite build",
+    "lint": "oxlint",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@capacitor/android": "^8.4.1",
+    "@capacitor/core": "^8.4.1",
+    "@capacitor/filesystem": "^8.1.2",
+    "@capacitor/share": "^8.0.1",
+    "decimal.js": "^10.6.0",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "react-router-dom": "^7.18.1",
+    "recharts": "^3.9.1",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^8.4.1",
+    "@types/node": "^24.13.2",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.3",
+    "oxlint": "^1.71.0",
+    "typescript": "~6.0.2",
+    "vite": "^8.1.1",
+    "vite-plugin-pwa": "^1.3.0",
+    "vitest": "^4.1.9"
+  }
+}
