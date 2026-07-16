@@ -28,6 +28,7 @@ export interface StockMovement {
   costTotal: string
   note: string
   createdAt: string
+  orderId?: string
 }
 
 export interface LocalAppData {
@@ -49,7 +50,7 @@ const decimalStringSchema = z.string().refine((value) => {
   } catch {
     return false
   }
-}, '必須是有效的十進位數字字串')
+}, 'Expected a finite decimal string.')
 
 const timestampSchema = z.string().datetime()
 
@@ -78,6 +79,9 @@ const stockMovementSchema = z.object({
   costTotal: decimalStringSchema,
   note: z.string(),
   createdAt: timestampSchema,
+  // `orderId` lets one submitted order contain multiple sale lines
+  // while staying backward-compatible with existing saved payloads.
+  orderId: z.string().min(1).optional(),
 }).strict()
 
 const localAppDataSchema = z.object({
@@ -106,7 +110,7 @@ function openDatabase(): Promise<IDBDatabase> {
     }
 
     request.onsuccess = () => resolve(request.result)
-    request.onerror = () => reject(request.error ?? new Error('無法開啟本機資料庫'))
+    request.onerror = () => reject(request.error ?? new Error('Unable to open the local database.'))
   })
 }
 
@@ -127,10 +131,11 @@ export async function loadLocalData(): Promise<LocalAppData> {
       if (parsed.success) {
         resolve(parsed.data)
       } else {
-        reject(new Error('本機資料格式無效，請從有效備份還原'))
+        reject(new Error('The saved local data is invalid.'))
       }
     }
-    request.onerror = () => reject(request.error ?? new Error('無法讀取本機資料'))
+
+    request.onerror = () => reject(request.error ?? new Error('Unable to read the local database.'))
     transaction.oncomplete = () => database.close()
   })
 }
@@ -147,7 +152,7 @@ export async function saveLocalData(data: LocalAppData): Promise<void> {
     }
     transaction.onerror = () => {
       database.close()
-      reject(transaction.error ?? new Error('無法儲存本機資料'))
+      reject(transaction.error ?? new Error('Unable to save the local database.'))
     }
   })
 }

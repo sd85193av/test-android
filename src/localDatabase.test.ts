@@ -6,8 +6,8 @@ const validData = (): LocalAppData => ({
   products: [
     {
       id: 'product-1',
-      name: '鴨頭',
-      unit: '份',
+      name: '鮮奶茶',
+      unit: '杯',
       stock: '10.5',
       reorderLevel: '3',
       cost: '25.00',
@@ -21,8 +21,8 @@ const validData = (): LocalAppData => ({
       id: 'movement-1',
       type: 'sale',
       productId: 'product-1',
-      productName: '鴨頭',
-      unit: '份',
+      productName: '鮮奶茶',
+      unit: '杯',
       quantity: '-1.5',
       unitPrice: '50.00',
       unitCost: '25.00',
@@ -36,25 +36,32 @@ const validData = (): LocalAppData => ({
 })
 
 describe('isLocalAppData', () => {
-  it('接受完整且版本正確的備份', () => {
+  it('accepts a valid saved payload', () => {
     expect(isLocalAppData(validData())).toBe(true)
   })
 
-  it('拒絕不支援的備份版本', () => {
+  it('rejects an unsupported version', () => {
     expect(isLocalAppData({ ...validData(), version: 2 })).toBe(false)
   })
 
-  it('拒絕商品欄位不完整或數值無效的備份', () => {
+  it('rejects invalid decimal strings', () => {
     const data = validData()
     data.products[0] = { ...data.products[0], stock: 'not-a-number' }
 
     expect(isLocalAppData(data)).toBe(false)
   })
 
-  it('拒絕異動紀錄欄位缺漏的備份', () => {
+  it('rejects movements with missing required fields', () => {
     const data = validData()
     const { createdAt: _createdAt, ...incompleteMovement } = data.movements[0]
 
     expect(isLocalAppData({ ...data, movements: [incompleteMovement] })).toBe(false)
+  })
+
+  it('accepts grouped sale lines with an order id', () => {
+    const data = validData()
+    data.movements[0] = { ...data.movements[0], orderId: 'order-1' }
+
+    expect(isLocalAppData(data)).toBe(true)
   })
 })
